@@ -1,0 +1,2 @@
+108的難點在于在指定的時間内完成。所以這題要利用到kadane algorithm。如果用brute force的方法來做應該會超出指定時間。
+在maxRec裏面的funtion裏面配合是kadane 就可算出max submatrix的sum了。

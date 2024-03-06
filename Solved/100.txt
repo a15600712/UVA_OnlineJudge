@@ -1,1 +1,0 @@
-這題的話就是只要用一個recursive 的 function就可以在配合是一個for loop來跑從輸入的範圍。
