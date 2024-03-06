@@ -6,6 +6,9 @@
 
 using namespace  std;
 
+void dp(vector<int> ,int);
+
+
 int main()
 {
     int test_case=0;
@@ -28,21 +31,55 @@ int main()
             vec.push_back(x);
         }
         bars_length.push_back(vec);
-
     }
+
     for (int i = 0; i < test_case; i++)
     {
-        cout<<"Target Length:"<<target_length[i]<<endl;
-        cout<<"Bars Length:";
-        for (int k = 0; k < bars_count[i]; k++)
-        {
-            cout<<bars_length[i][k]<<" ";
-        }
-        cout<<endl;
+        sort(bars_length[i].begin(),bars_length[i].end());
+        dp(bars_length[i],target_length[i]);
     }
     
     
 
 
     return 0;
+}
+
+
+using namespace std;
+
+void dp(vector<int>bars_length , int target_length)
+{
+    //4,660
+    int table[bars_length.size()][target_length+1]={0};
+    for (int i = 0; i < bars_length.size(); i++)
+    {
+        table[i][0]=1;
+        for (int j = 0; j < target_length+1; j++)
+        {
+            if (i==0&&j==bars_length[i])
+            {
+                table[i][j]=1;
+            }else if(i!=0&&j-bars_length[i]<0)
+            {
+                table[i][j]=table[i-1][j];
+            }else if(i!=0&&j-bars_length[i]>=0)
+            {
+                table[i][j]=table[i-1][j]+table[i-1][j-bars_length[i]];
+            }
+            
+        }
+        
+    }
+    for (int i = 0; i < bars_length.size(); i++)
+    {
+        if (table[i][target_length]==1)
+        {
+            cout<<"YES"<<endl;
+            return;
+        }
+        
+    }
+    cout<<"NO"<<endl;
+    return;
 }
